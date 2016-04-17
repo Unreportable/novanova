@@ -1,0 +1,117 @@
+package com.example.asus.myapplication;
+
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.text.TextUtils;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    EditText Num1;
+    //EditText etNum2;
+    final int MENU_RESET_ID = 1;
+    final int MENU_QUIT_ID = 2;
+    Button btnMult;
+
+
+    TextView tvResult;
+
+    String oper = "";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // находим элементы
+        Num1 = (EditText) findViewById(R.id.Num1);
+
+
+
+        btnMult = (Button) findViewById(R.id.btnMult);
+
+
+        tvResult = (TextView) findViewById(R.id.tvResult);
+
+        // прописываем обработчик
+
+        btnMult.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        float num1 = 0;
+        float num2 = 0;
+        float result = 0;
+
+        // Проверяем поля на пустоту
+        if (TextUtils.isEmpty(Num1.getText().toString())
+                ) {
+            return;
+        }
+
+        // читаем EditText и заполняем переменные числами
+        num1 = Float.parseFloat(Num1.getText().toString());
+
+
+        // определяем нажатую кнопку и выполняем соответствующую операцию
+        // в oper пишем операцию, потом будем использовать в выводе
+
+
+         switch (v.getId()) {
+
+            case R.id.btnMult:
+                oper = "*";
+                result = num1 * num1;
+                break;
+
+            default:
+                break;
+        }
+
+        // формируем строку вывода
+        tvResult.setText("   " + result);
+    }
+
+    ).start();
+
+    // создание меню
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// TODO Auto-generated method stub
+        menu.add(0, MENU_RESET_ID, 0, "Reset");
+        menu.add(0, MENU_QUIT_ID, 0, "Quit");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // обработка нажатий на пункты меню
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+// TODO Auto-generated method stub
+        switch (item.getItemId()) {
+            case MENU_RESET_ID:
+// очищаем поля
+                Num1.setText("");
+
+                tvResult.setText("");
+                break;
+            case MENU_QUIT_ID:
+// выход из приложения
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+}
