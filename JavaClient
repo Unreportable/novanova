@@ -1,0 +1,31 @@
+import java.net.*;
+	import java.io.*;
+	import java.util.Scanner;
+public class Client {
+	public static void main(String [] args){
+		int serverPort = 5000;
+		String adress = "127.0.0.1";
+		Scanner sc = new Scanner(System.in);
+		try{
+		InetAddress ipAdress = InetAddress.getByName(adress);
+		Socket socket = new Socket(ipAdress,serverPort);
+
+			InputStream sin = socket.getInputStream();
+			OutputStream sout = socket.getOutputStream();
+			DataInputStream in = new DataInputStream(sin);
+			DataOutputStream out = new DataOutputStream(sout);
+			String line;
+			while(true){
+				line = sc.nextLine();
+		
+		out.writeUTF(line);
+		out.flush();
+		line=in.readUTF();
+		//System.out.println(line);
+		}}
+
+		catch(Exception x){x.printStackTrace();}
+		}
+
+
+}
